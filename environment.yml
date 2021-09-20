@@ -7,3 +7,4 @@ dependencies:
   - pandas
   - folium
   - colorama
+  - mpl_toolkits.basemap
