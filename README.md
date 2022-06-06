@@ -33,7 +33,7 @@ from colorama import Fore
 import folium
 from folium import Choropleth, Circle, Marker
 from folium.plugins import HeatMap, MarkerCluster
-'''
+```
 
 
 ![image](https://user-images.githubusercontent.com/74167887/172212209-3ee0cf25-6c8d-453f-aa09-6475a8ee07e8.png)
