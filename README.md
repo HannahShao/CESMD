@@ -48,152 +48,23 @@ country_list = ["US","British Virgin Islands","Canada","Chile",
 state_list = ["AK","AR","CA","DE","HI","ID","IL","KS","MT","NV","OK","OR","SC","VA","WA"]
 ```
 
-##### Query function to make the webservice URL
-```Python
-"""LOCATION QUERY FUNCTION"""
-# By Country
-def earthquake_country(url):
-    print('Country List:\n',country_list)
-    country= input('What is the country?')  
-    if country != '':
-        url = url+'&country='+country
-        print('State List:\n',state_list)
-        state= input('what is the state?') 
-        if state != '':
-            url = url+'&state='+state
-        else: 
-            print('No input state.')
-    else: 
-        print('No input country.')    
-    print(url)
-    return url
+##### There are some python functions to make the webservice URL for query
 
+### Start Query
 
-
-
-# By Circle
-def earthquake_country_circle(url):
-    latitue = input('Latitude at circle center')  
-    longitude = input('Longitude at circle center')
-    radius = input ('Radius(km) from circle center')
-    if  latitue and longitude and radius: 
-        url = url+f'&lat={latitue}&lon={longitude}&rad={radius}'
-        print(url)
-    else:
-        print(Fore.RED + 'You may missing at least one parameter, the url will not contain the circle query')
-        print(url)
-    return url
-
-
-
-
-# By Coordinates
-def earthquake_Coordinates(url):
-    minlat=input('Min Latitude') 
-    maxlat=input('Max Latitude') 
-    minlon=input('Min Longitude')
-    maxlon=input('Max Longitude')
-    
-    if  minlat and maxlat and minlon and maxlon: 
-        url = url +f'&minlat={minlat}&maxlat={maxlat}&minlon={minlon}&maxlon={maxlon}'
-        print(url)
-    else:
-        print(Fore.RED + 'You may missing at least one parameter, the url will not contain the coordinates query')
-        print(url)
-    return url
-    
-# Start with create the query url
-
-def earthquake_parameter(url):
-    # Start enter the input and check the format to make url
-    print("For the following question, please follow the instructions or skip by pushing the 'return' button. Thanks!\n")
-    #
-    minmag= input('Min magnitude   (a number between 0~10):')
-    maxmag= input('Max magnitude   (a number between 0~10, greater than min magnitude):')
-    startdate= input('Enter a start date (ex.2021-08-25, 2021-08-14T11:57:43.715Z):')    
-    enddate=input('Enter a end date (ex.2021-08-25, 2021-08-14T11:57:43.715Z, later than start date):')
-    faulttype = input('Enter a fault type (ex.NM,RS,SS. Default is any):')
-
-    
-    # Eroor Handeling
-    if minmag != '' and float(minmag):
-        url = url+'&minmag='+minmag
-    else: 
-        print(Fore.RED +'No min magnitude or input is not a number.')
-        
-
-    if maxmag != '' and float(maxmag):
-        if minmag == '' or float(maxmag) >= float(minmag):
-            url = url+'&maxmag='+maxmag
-        else:
-            print(Fore.RED +'Max magnitude is not a number.')
-    else: 
-        print(Fore.RED +'No max magnitude.')
-
-    if startdate != '':
-        url = url+'&startdate='+startdate
-    else: 
-        print(Fore.RED +'No input start date.')
-
-    if enddate != '':
-        url = url+'&enddate='+startdate
-    else: 
-        print(Fore.RED +'No input end date.')    
-    
-    if faulttype != '':
-        url = url+'&faulttype='+faulttype
-    else:
-        print(Fore.RED +'fault type is any')
-        
-
-    #orderby=time
-    #format=csv
-    print(url)
-    return url
-
-
-
-
-
-
-# ask users input and create the complete URL by adding pieces 
-def query_earthquake(url):
-    event_id = input('Do you have an id number? (Yes/No)')
-    # event id is the primary 
-    if  event_id.lower() == 'yes':
-        id_ = input('Event ID:')
-        url = url +f'&eventid={id_}'
-    # parameters and location to the url 
-    else:
-        query = input('\nDo you want to query by parameters, location, or both? (parameters/location/both)')
-        if query.lower() == 'parameters':
-            url = earthquake_parameter(url)
-        elif query.lower() == 'location':
-            e,s='',''
-            loc_type= input('Do you want to query by country, circle or coordination?')
-            if loc_type.lower().lower() == 'country':
-                url = earthquake_country(url)
-            elif loc_type.lower() == 'circle':
-                url =  earthquake_country_circle(url)
-            elif loc_type.lower() == 'coordination':
-                url = earthquake_Coordinates(url)
-            else:
-                print(Fore.RED+'No input for location')
-        elif query.lower() == 'both':
-            url = earthquake_parameter(url)
-            loc_type= input('Do you want to query by country, circle or coordination?')
-            if loc_type.lower() == 'country':
-                url = earthquake_country(url)
-            elif loc_type.lower() == 'circle':
-                url =  earthquake_country_circle(url)
-            elif loc_type.lower() == 'coordination':
-                url = earthquake_Coordinates(url)
-            else:
-                print('No input for location')
-        else:
-            print(Fore.RED +('Unknow input, you may need try again if the url is not working'))
-    if url == 'https://www.strongmotioncenter.org/wserv/events/query?&orderby=time&format=csv&nodata=404':
-        print(Fore.RED +'You must enter at least one parameter! Try Again.')
-    
-    return url 
+Sater adding parameters to the basic URL.
+By running the python function, it will ask user to enter the parameters. 
+'''Python
+# Sample Query URL 
+url = 'https://www.strongmotioncenter.org/wserv/events/query?&orderby=time&format=csv&nodata=404' # initial url with csv format
+event_url = query_earthquake(url)
 ```
+![image](https://user-images.githubusercontent.com/74167887/172213349-b4399787-b038-4771-bfa5-cf518498e834.png)
+
+Now we will read in the example data
+```Python
+data = open_url(event_url)
+print(data.describe())
+data.head()
+```
+![image](https://user-images.githubusercontent.com/74167887/172213523-78f5a3ac-a543-470c-83d5-90cad4933284.png)
