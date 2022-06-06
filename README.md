@@ -52,7 +52,7 @@ state_list = ["AK","AR","CA","DE","HI","ID","IL","KS","MT","NV","OK","OR","SC","
 
 ### Start Query
 
-Sater adding parameters to the basic URL.
+Start adding parameters to the basic URL.
 By running the python function, it will ask user to enter the parameters. 
 ```Python
 # Sample Query URL 
