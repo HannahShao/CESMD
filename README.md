@@ -54,7 +54,7 @@ state_list = ["AK","AR","CA","DE","HI","ID","IL","KS","MT","NV","OK","OR","SC","
 
 Sater adding parameters to the basic URL.
 By running the python function, it will ask user to enter the parameters. 
-'''Python
+```Python
 # Sample Query URL 
 url = 'https://www.strongmotioncenter.org/wserv/events/query?&orderby=time&format=csv&nodata=404' # initial url with csv format
 event_url = query_earthquake(url)
