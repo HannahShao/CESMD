@@ -68,3 +68,4 @@ print(data.describe())
 data.head()
 ```
 ![image](https://user-images.githubusercontent.com/74167887/172213523-78f5a3ac-a543-470c-83d5-90cad4933284.png)
+![image](https://user-images.githubusercontent.com/74167887/172215295-1b802fe1-f901-457b-b915-56e3e265dd87.png)
